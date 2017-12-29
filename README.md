@@ -8,7 +8,7 @@ The bot was created using Python 3, and right now it does the following:
 
 -All the URLs used in tweets are shortened using the Google URL shortener API;
 
--For Reddit, it posts the "hottest" post at the moment, its title and shortened URL;
+-For Reddit, it posts the "hottest" post at the moment, its title and shortened URL, from the Technology, Python Education or Programming subreddits;
 
 -It can also post my current Internet speeds (though that option is "disabled" in the code at the moment).
 
