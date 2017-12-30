@@ -12,10 +12,10 @@ access_token_secret = bot_info.access_token_secret
 #Set up OAuth and integrate with API
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
-api = tweepy.API(auth)
+api_instance = tweepy.API(auth)
 
 #List to contains the possible tweets to be created
-tweets_list = ["tweet_DateTime", "tweet_Reddit", "tweet_wccftech", "tweet_sciencemag", "tweet_bbcworld"]
+tweets_list = ["tweet_DateTime", "tweet_Reddit", "tweet_wccftech", "tweet_sciencemag", "tweet_bbcworld", "tweet_googleQuery"]
 #List to contain the 2 tweets to be tweeted out
 to_tweet = []
 
@@ -38,6 +38,7 @@ for i in range(2):
     #Tweet the current hottest post on a specific subreddit
     elif tweet == "tweet_Reddit":
         import getHotNewReddit
+        #Choose a subreddit to target
         subred = random.choice(('technology', 'learnpython', 'programming'))
         tweet_Reddit_info = getHotNewReddit.HotNew(subred)
         tweet_Reddit = f'Hottest submission in r/{tweet_Reddit_info[0]}: "{tweet_Reddit_info[1]}" which you can read at {shortenURLs.shortenUrl(tweet_Reddit_info[2])}.'
@@ -58,12 +59,25 @@ for i in range(2):
         import scrape_bbcworld
         tweet_bbcworld = f'The first article on @BBCWorld \'s website is "{scrape_bbcworld.get_first_post()[0]}", which you can read at {shortenURLs.shortenUrl(scrape_bbcworld.get_first_post()[1])}'
         to_tweet.append(tweet_bbcworld)
+    #Tweet the first result for a google query, using a random word from the first tweet in the Bot's timeline
+    elif tweet == "tweet_googleQuery":
+        import google_query
+        #Text of the target tweet
+        googleQuery_tweet = api_instance.home_timeline()[0]._json["text"]
+        #Choose a random word from that tweet to use as the query parameter
+        query_word = random.choice(googleQuery_tweet.split()).lower()
+        google_result = google_query.googleSearch(query_word)
+        tweet_googleQuery = f'The first result on Google for "{query_word}" is "{google_result[0]}...". You can read the rest at the link {shortenURLs.shortenUrl(google_result[1])}'
+        to_tweet.append(tweet_googleQuery)
+
 
 #Tweet out the 2 created tweets
 #Before sending the tweet, create a try/except clause to make sure it doesn't get caught in Duplicate tweets errors
 for tweet in to_tweet:
     try:
-        api.update_status(status=tweet)
+        api_instance.update_status(status=tweet)
         print('Your tweet has been sent.')
     except:
         print('Duplicate tweet.')
+print()
+print('Bot going to sleep.')
