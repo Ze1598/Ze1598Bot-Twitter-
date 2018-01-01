@@ -27,8 +27,8 @@ for i in range(2):
     #Tweet current date and time, in extense
     if tweet == "tweet_DateTime":
         import get_Time_Date as T_D
-        import dayOfTheWeek
-        tweet_DateTime = f'Date and time update:\n{dayOfTheWeek.dayoftheWeek(dayOfTheWeek.day, dayOfTheWeek.month, dayOfTheWeek.year)}\n{T_D.TalkingClock(T_D.time_format)}.'
+        import dayOfTheWeek2018
+        tweet_DateTime = f'Date and time update:\n{dayOfTheWeek2018.dayoftheWeek(dayOfTheWeek2018.day, dayOfTheWeek2018.month, dayOfTheWeek2018.year)}\n{T_D.TalkingClock(T_D.time_format)}.'
         to_tweet.append(tweet_DateTime)
     #Tweet current internet speeds
     elif tweet == "tweet_TestSpeed":
