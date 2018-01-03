@@ -13,3 +13,5 @@ The bot was created using Python 3, and right now it does the following:
 -It can also post my current Internet speeds (though that option is "disabled" in the code at the moment).
 
 -(Update dec. 30th 2017) Tweet the first result for a google query using a random word from the first tweet in the Bot's feed
+
+-(Update jan. 1st 2018) Added a new version of dayOfTheWeek.py for 2018, by switch the existing one for dayOfTheWeek2018.py
