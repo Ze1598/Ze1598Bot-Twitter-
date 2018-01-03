@@ -15,10 +15,15 @@ def shortenUrl(url):
     json_data = json.dumps(data)
     #before making the request, create the headers for the POST request
     headers = {'Content-type': 'application/json'}
-    #then finally make the request
-    response = requests.post(req_url, data=json_data, headers = headers)
-    #return the id value of the request
-    return response.json()['id']
+    #Create a try/except clause for when there's problems with the URL Shortener servers
+    try:
+        #then finally make the request
+        response = requests.post(req_url, data=json_data, headers = headers)
+        #return the id value of the request
+        return response.json()['id']
+    except:
+        print('Something went wrong with the API, returning the original URL.')
+        return url
 
 #Expands a shortenned URL
 def expandUrl(url):
@@ -31,10 +36,15 @@ def expandUrl(url):
     #&shortUrl=: a second query parameter to indicate the shortened URL
     #url: the shortened URL
     req_url = f'https://www.googleapis.com/urlshortener/v1/url?key={apiKey}&shortUrl={url}'
-    #then create a GET request
-    response = requests.get(req_url)
-    #return the longUrl of the request
-    return response.json()['longUrl']
+    #Create a try/except clause for when there's problems with the URL Shortener servers
+    try:
+        #then create a GET request
+        response = requests.get(req_url)
+        #return the longUrl of the request
+        return response.json()['longUrl']
+    except:
+        print('Something went wrong with the API, returning the original URL.')
+        return url
 
 if __name__ == '__main__':
     print('Your shortened URL is:', shortenUrl('https://ze1598.wixsite.com/zereviews/single-post/2017/11/26/Impressions-Animal-Crossing-Pocket-Camp'))
