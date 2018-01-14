@@ -19,3 +19,5 @@ Update logs:
 -(jan. 1st 2018) Added a new version of dayOfTheWeek.py for 2018, by switch the existing one for dayOfTheWeek2018.py
 
 -(jan. 3rd 2018) Added a try/except clause to the shortenURLs.py file, to prevent exceptions when, for instance, there's problems with the API servers. This way, the script will return the same URL (a long URL) but it won't raise any exceptions
+
+-(jan. 14th. 2018) Updated scrape_sciencemagazine.py with an updated scraped URL
