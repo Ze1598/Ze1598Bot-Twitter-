@@ -21,3 +21,5 @@ Update logs:
 -(jan. 3rd 2018) Added a try/except clause to the shortenURLs.py file, to prevent exceptions when, for instance, there's problems with the API servers. This way, the script will return the same URL (a long URL) but it won't raise any exceptions
 
 -(jan. 14th. 2018) Updated scrape_sciencemagazine.py with an updated scraped URL
+
+-(jan. 14th 2018) Added a PYtoJS folder: contains scripts in Python and JavaScript, so that it scrapes an article from a given website using Python, saves that information to a .json file and then reads that file and posts a tweet about it using JavaScript. Note: the current intermediaryJSON.json file's content is just an example of what the file may contain.
