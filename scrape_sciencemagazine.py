@@ -14,7 +14,7 @@ def get_first_article():
     article = soup.find('div', class_ = 'hero__content')
     #remove leading spaces from the title
     article_title = article.h2.a.text.strip()
-    article_url = website + article.h2.a['href']
+    article_url = article.h2.a['href']
     return (article_title, article_url)
 
 if __name__ == '__main__':
