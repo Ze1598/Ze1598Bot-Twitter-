@@ -1,0 +1,12 @@
+Python
+-Scrape an article using Python (Beautiful Soup + Requests)
+-Pass the article's title and URL to a dictionary
+-Convert the dictionary to a json object
+-Save the object in a .json file
+___________________________________________________
+JavaScript
+-Import the .json file with the article's information
+-Assign the title and URL to separate variables
+-Authenticate the bot into Twitter using the data in a second .json file
+-Create the tweet to be posted
+-Post the created tweet that contains the article's information
