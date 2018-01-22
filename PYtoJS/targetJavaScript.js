@@ -24,7 +24,7 @@ var client = new Twitter({
 
 //Created the string to be used in tweet
 let tweet_text = `\"${title}\", which you can read at ${articleURL}.\n\n***This tweet was \
-programmed using JavaScript with the article scraped using Python.***`;
+posted using JavaScript and the article was scraped using Python.***`;
 console.log(tweet_text);
 console.log();
 
