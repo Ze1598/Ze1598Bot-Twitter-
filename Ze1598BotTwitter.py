@@ -67,6 +67,11 @@ for i in range(2):
         #Choose a random word from that tweet to use as the query parameter
         query_word = random.choice(googleQuery_tweet.split()).lower()
         google_result = google_query.googleSearch(query_word)
+        #If there were problems retrieving search results, retry with a different 'query_word'
+        #Here I am assuming at the second try the problem won't repeat itself
+        if google_result == None:
+            query_word = random.choice(googleQuery_tweet.split()).lower()
+            google_result = google_query.googleSearch(query_word)
         tweet_googleQuery = f'The first result on Google for "{query_word}" is "{google_result[0]}...". You can read the rest at the link {shortenURLs.shortenUrl(google_result[1])}'
         to_tweet.append(tweet_googleQuery)
 
