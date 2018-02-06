@@ -1,5 +1,6 @@
 #user-created module containing the credentials needed for the bot
 import Ze1598Bot_credentials as bot_info
+from os import system
 #Library for the Twitter API; built-in random module; module I created to shorten URLs using Google's URL shortener service
 import tweepy, random, shortenURLs
 
@@ -15,7 +16,7 @@ auth.set_access_token(access_token, access_token_secret)
 api_instance = tweepy.API(auth)
 
 #List to contains the possible tweets to be created
-tweets_list = ["tweet_DateTime", "tweet_Reddit", "tweet_wccftech", "tweet_sciencemag", "tweet_bbcworld", "tweet_googleQuery"]
+tweets_list = ["tweet_DateTime", "tweet_Reddit", "tweet_wccftech", "tweet_sciencemag", "tweet_bbcworld", "tweet_googleQuery", "PYtoJS"]
 #List to contain the 2 tweets to be tweeted out
 to_tweet = []
 
@@ -74,6 +75,9 @@ for i in range(2):
             google_result = google_query.googleSearch(query_word)
         tweet_googleQuery = f'The first result on Google for "{query_word}" is "{google_result[0]}...". You can read the rest at the link {shortenURLs.shortenUrl(google_result[1])}'
         to_tweet.append(tweet_googleQuery)
+    #Scrape an article from a website using Python, save the data to a JSON file, then tweet the data using JavaScript
+    elif tweet == "PYtoJS":
+        system("cd PYtoJS & python sourcePython.py & node targetJavaScript.js")
 
 
 #Tweet out the 2 created tweets
