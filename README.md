@@ -27,3 +27,10 @@ Update logs:
 -(jan 22nd 2018) Added a way to work around cases when the retrieval of google query search results had problems. Now when this happens, the main file simply feeds that script a second word for it to search for (it assumes the problem won't happen with the second word). I also updated a string at the end of PYtoJS/targetJavaScript.js
 
 -(feb. 6th 2018) Now the main script has the option to run the PYtoJS process
+
+
+External references:
+
+-Google Search API: https://github.com/abenassi/Google-Search-API
+-Tweepy: https://github.com/tweepy/tweepy/tree/920f5c49c059c4ea7f16c7c4f070c484161525c3
+-Twitter for node.js: https://github.com/desmondmorris/node-twitter
