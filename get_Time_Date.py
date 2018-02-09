@@ -1,4 +1,4 @@
-import datetime, re
+import datetime
 now = datetime.datetime.now()
 # print('Current time and date: ', now)
 # print('Current year: ', now.year)
@@ -111,7 +111,7 @@ def TalkingClock(time):
 
 def current_date(today):
 #Split the date by hifens (-)
-    split_today = re.split('-', str(today))
+    split_today = today.split('-')
 #Year will be the first split result
     year = split_today[0]
     months_list =['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
