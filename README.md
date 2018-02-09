@@ -31,6 +31,16 @@ Update logs:
 
 External references:
 
+-Beautiful Soup: https://www.crummy.com/software/BeautifulSoup/bs4/doc/
+
+-Requests: http://docs.python-requests.org/en/master/
+
+-praw (The Python Reddit API Wrapper): https://github.com/praw-dev/praw
+
+-pyspeedtest: https://github.com/fopina/pyspeedtest
+
 -Google Search API: https://github.com/abenassi/Google-Search-API
+
 -Tweepy: https://github.com/tweepy/tweepy/tree/920f5c49c059c4ea7f16c7c4f070c484161525c3
+
 -Twitter for node.js: https://github.com/desmondmorris/node-twitter
