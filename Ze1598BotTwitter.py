@@ -1,8 +1,12 @@
 #user-created module containing the credentials needed for the bot
 import Ze1598Bot_credentials as bot_info
 from os import system
+from time import time
 #Library for the Twitter API; built-in random module; module I created to shorten URLs using Google's URL shortener service
 import tweepy, random, shortenURLs
+
+#The starting time of the script (time how long the script takes to run)
+start_time = time()
 
 #Create variables for each key, secret, token
 consumer_key = bot_info.consumer_key
@@ -16,7 +20,7 @@ auth.set_access_token(access_token, access_token_secret)
 api_instance = tweepy.API(auth)
 
 #List to contains the possible tweets to be created
-tweets_list = ["tweet_DateTime", "tweet_Reddit", "tweet_wccftech", "tweet_sciencemag", "tweet_bbcworld", "tweet_googleQuery", "PYtoJS"]
+tweets_list = ["tweet_Reddit", "tweet_wccftech", "tweet_sciencemag", "tweet_bbcworld", "tweet_googleQuery", "PYtoJS"]
 #List to contain the 2 tweets to be tweeted out
 to_tweet = []
 
@@ -25,7 +29,9 @@ for i in range(2):
     #Tweet a random tweet from the different tweets I've created
     tweet = random.choice(tweets_list)
     #In order to not call every module that can be used, simply call the modules needed for the tweet that has been chosen
-    #Tweet current date and time, in extense
+    
+    #Tweet current date and time, including day of the week and AM/PM
+    '''Currently not in the options'''    
     if tweet == "tweet_DateTime":
         import get_Time_Date as T_D
         import dayOfTheWeek2018
@@ -86,7 +92,16 @@ for tweet in to_tweet:
     try:
         api_instance.update_status(status=tweet)
         print('Your tweet has been sent.')
+        print()
+        print()
     except:
         print('Duplicate tweet.')
+        print()
+        print()
+    print(tweet)
+
 print()
+print()
+print()
+print('Elapsed time:', round(time()-start_time,4), 'seconds.')
 print('Bot going to sleep.')

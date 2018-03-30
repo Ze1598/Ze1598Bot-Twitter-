@@ -35,7 +35,7 @@ elif scrape_choice == 'sciencemag':
     soup = BeautifulSoup(source, 'lxml')
     article = soup.find('div', class_ = 'hero__content')
     article_info["article_title"] = article.h2.a.text.strip()
-    article_info["article_url"] = article.h2.a['href']
+    article_info["article_url"] = 'http://www.sciencemag.org' + article.h2.a['href']
 
 #If this script is being executed print 'article_info'
 if __name__ == "__main__":
