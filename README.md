@@ -28,6 +28,8 @@ Update logs:
 
 -(feb. 6th 2018) Now the main script has the option to run the PYtoJS process
 
+-(mar. 30th 2018) Corrected a bug where the scraped URL for the Science Magazine article wasn't complete; Also removed the Date and Time Update from the possible tweets rotation
+
 
 
 External references:
