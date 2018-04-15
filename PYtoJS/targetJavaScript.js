@@ -30,9 +30,10 @@ console.log();
 
 //Post the tweet
 client.post('statuses/update', {status: tweet_text}, function(error, tweet, response){
-    console.log(error);
-    console.log(tweet);
+    // console.log(error);
+    // console.log(tweet);
 });
 
 //Log a final statement before ending the script
 console.log('Your tweet has been sent.');
+console.log();
