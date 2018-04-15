@@ -18,7 +18,7 @@ Update logs:
 
 -(mar. 30th 2018) Corrected a bug where the URL for the scraped Science Magazine articles wasn't complete; Also removed the Date and Time Update from the possible tweets rotation
 
--(apr. 15th 2018) Migrated URL shortening from Google URL Shortener to Firebase Dynamic Links; also created a separate file for the update logs of the repo (from now on I will only keep the 3 most recent updates in the README
+-(apr. 15th 2018) Migrated URL shortening from Google URL Shortener to Firebase Dynamic Links; also created a separate file for the update logs of the repo (from now on I will only keep the 3 most recent updates in the README)
 
 
 
