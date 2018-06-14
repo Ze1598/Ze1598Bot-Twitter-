@@ -31,3 +31,5 @@
 
 
 -(apr. 15th 2018) Migrated URL shortening from Google URL Shortener to Firebase Dynamic Links; also created a separate file for the update logs of the repo (from now on I will only keep the 3 most recent updates in the README)
+
+-(june 14th 2018) Deleted the code used to tweet internet speeds due to problems with the module used for that. Also added the possibility to tweet the hottest post in the dadjokes subreddit

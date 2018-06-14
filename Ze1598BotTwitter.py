@@ -23,7 +23,7 @@ auth.set_access_token(access_token, access_token_secret)
 api_instance = tweepy.API(auth)
 
 # List to contains the possible tweets to be created
-tweets_list = ["tweet_Reddit", "tweet_wccftech", "tweet_sciencemag", "tweet_bbcworld", "tweet_googleQuery", "PYtoJS"]
+tweets_list = ["tweet_Reddit", "tweet_wccftech", "tweet_sciencemag", "tweet_bbcworld", "PYtoJS"]
 # List to contain the 2 tweets to be tweeted out
 to_tweet = []
 
@@ -34,22 +34,17 @@ for i in range(2):
     # In order to not call every module that can be used, simply call the modules needed for the tweet that has been chosen
     
     # Tweet current date and time, including day of the week and AM/PM
-    '''Currently not in the options'''    
+    # Currently not in the options 
     if tweet == "tweet_DateTime":
         import get_Time_Date as T_D
         import dayOfTheWeek2018
         tweet_DateTime = f'Date and time update:\n{dayOfTheWeek2018.dayoftheWeek(dayOfTheWeek2018.day, dayOfTheWeek2018.month, dayOfTheWeek2018.year)}\n{T_D.TalkingClock(T_D.time_format)}.'
         to_tweet.append(tweet_DateTime)
-    # Tweet current internet speeds
-    elif tweet == "tweet_TestSpeed":
-        import InternetConnection_SpeedPing as ConnectSpeed
-        tweet_TestSpeed = f'Current connection speeds\n{ConnectSpeed.ping}\n{ConnectSpeed.download}\n{ConnectSpeed.upload}'
-        to_tweet.append(tweet_TestSpeed)
     # Tweet the current hottest post on a specific subreddit
     elif tweet == "tweet_Reddit":
         import getHotNewReddit
         # Choose a subreddit to target
-        subred = random.choice(('technology', 'learnpython', 'programming'))
+        subred = random.choice(('technology', 'learnpython', 'programming', 'dadjokes'))
         tweet_Reddit_info = getHotNewReddit.HotNew(subred)
         tweet_Reddit = f'Hottest submission in r/{tweet_Reddit_info[0]}: "{tweet_Reddit_info[1]}" which you can read at {shortenURLs_firebase.shortenUrl(tweet_Reddit_info[2])}.'
         to_tweet.append(tweet_Reddit)
@@ -70,6 +65,7 @@ for i in range(2):
         tweet_bbcworld = f'The first article on @BBCWorld \'s website is "{scrape_bbcworld.get_first_post()[0]}", which you can read at {shortenURLs_firebase.shortenUrl(scrape_bbcworld.get_first_post()[1])}'
         to_tweet.append(tweet_bbcworld)
     # Tweet the first result for a google query, using a random word from the first tweet in the Bot's timeline
+    # Currently not in the options 
     elif tweet == "tweet_googleQuery":
         import google_query
         # Text of the target tweet
