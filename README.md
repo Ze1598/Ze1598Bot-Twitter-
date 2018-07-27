@@ -14,11 +14,11 @@ The bot was created using Python 3, and right now it does the following:
 
 Update logs:
 
--(feb. 6th 2018) Now the main script has the option to run the PYtoJS process
-
 -(mar. 30th 2018) Corrected a bug where the URL for the scraped Science Magazine articles wasn't complete; Also removed the Date and Time Update from the possible tweets rotation
 
 -(apr. 15th 2018) Migrated URL shortening from Google URL Shortener to Firebase Dynamic Links; also created a separate file for the update logs of the repo (from now on I will only keep the 3 most recent updates in the README)
+
+-(june 14th 2018) Deleted the code used to tweet internet speeds due to problems with the module used for that. Also added the possibility to tweet the hottest post in the dadjokes subreddit
 
 
 
