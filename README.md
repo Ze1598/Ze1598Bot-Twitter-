@@ -20,6 +20,8 @@ Update logs:
 
 -(july 28th 2018) Added a new module (download_xkcd.py) to download and post the latest xkcd.com comic (posted as a media tweet). I also updated the main script structure (Ze1598BotTwitter.py)
 
+-(july 31st 2018) Added a new module (db_script.py) and a SQLite database. This module is responsible for updating the database with new tweets as they are created. Since this database won't contain duplicate tweets it will prevent against posting duplicate tweets.
+
 
 
 External references:
