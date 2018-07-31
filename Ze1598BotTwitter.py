@@ -2,8 +2,11 @@
 import Ze1598Bot_credentials as bot_info
 # Script I wrote to shorten URLs using Google's Firebase API
 import shortenURLs_firebase
+# Script I wrote to update the bot's database of posted tweets
+import db_script
 import os
 from time import time
+from datetime import datetime
 # Library for the Twitter API; built-in random module
 # http://tweepy.readthedocs.io/en/v3.5.0/
 import tweepy, random
@@ -101,8 +104,7 @@ def gen_tweets(tweet_types):
         if tweet == "tweet_DateTime":
             import get_Time_Date as T_D
             import dayOfTheWeek2018
-            tweet_DateTime = f'Date and time update:\n{dayOfTheWeek2018.dayoftheWeek(dayOfTheWeek2018.day, dayOfTheWeek2018.month, dayOfTheWeek2018.year)}\n{T_D.TalkingClock(T_D.time_format)}.'
-            to_tweet.append(tweet_DateTime)
+            new_tweet = f'Date and time update:\n{dayOfTheWeek2018.dayoftheWeek(dayOfTheWeek2018.day, dayOfTheWeek2018.month, dayOfTheWeek2018.year)}\n{T_D.TalkingClock(T_D.time_format)}.'
         
         # Tweet the current hottest post on a specific subreddit
         elif tweet == "tweet_Reddit":
@@ -110,27 +112,23 @@ def gen_tweets(tweet_types):
             # Choose a subreddit to target
             subred = random.choice(('technology', 'learnpython', 'programming', 'dadjokes'))
             tweet_Reddit_info = getHotNewReddit.HotNew(subred)
-            tweet_Reddit = f'Hottest submission in r/{tweet_Reddit_info[0]}: "{tweet_Reddit_info[1]}" which you can read at {shortenURLs_firebase.shortenUrl(tweet_Reddit_info[2])}.'
-            to_tweet.append(tweet_Reddit)
+            new_tweet = f'Hottest submission in r/{tweet_Reddit_info[0]}: "{tweet_Reddit_info[1]}" which you can read at {shortenURLs_firebase.shortenUrl(tweet_Reddit_info[2])}.'
         
         # Tweet the current first featured article on wccftech
         elif tweet == "tweet_wccftech":
             import scrape_wccftech
-            tweet_wccftech = f'The first featured article on @wccftechdotcom \'s website is "{scrape_wccftech.get_first_article()[0]}", which you can read at {shortenURLs_firebase.shortenUrl(scrape_wccftech.get_first_article()[1])}'
-            to_tweet.append(tweet_wccftech)
+            new_tweet = f'The first featured article on @wccftechdotcom \'s website is "{scrape_wccftech.get_first_article()[0]}", which you can read at {shortenURLs_firebase.shortenUrl(scrape_wccftech.get_first_article()[1])}'
         
         # Tweet the current first featured article on Science magazine
         elif tweet == "tweet_sciencemag":
             import scrape_sciencemagazine
             tweet_sciencemag = scrape_sciencemagazine.get_first_article()
-            tweet_sciencemag = f'@sciencemagazine \'s featured article is "{scrape_sciencemagazine.get_first_article()[0]}", which you can read at {shortenURLs_firebase.shortenUrl(scrape_sciencemagazine.get_first_article()[1])}'
-            to_tweet.append(tweet_sciencemag)
+            new_tweet = f'@sciencemagazine \'s featured article is "{scrape_sciencemagazine.get_first_article()[0]}", which you can read at {shortenURLs_firebase.shortenUrl(scrape_sciencemagazine.get_first_article()[1])}'
         
         # Tweet the first featured article on BBC World
         elif tweet == "tweet_bbcworld":
             import scrape_bbcworld
-            tweet_bbcworld = f'The first article on @BBCWorld \'s website is "{scrape_bbcworld.get_first_post()[0]}", which you can read at {shortenURLs_firebase.shortenUrl(scrape_bbcworld.get_first_post()[1])}'
-            to_tweet.append(tweet_bbcworld)
+            new_tweet = f'The first article on @BBCWorld \'s website is "{scrape_bbcworld.get_first_post()[0]}", which you can read at {shortenURLs_firebase.shortenUrl(scrape_bbcworld.get_first_post()[1])}'
         
         # Tweet the first result for a google query, using a random word from the first tweet in the Bot's timeline
         # Currently not in the options 
@@ -146,8 +144,7 @@ def gen_tweets(tweet_types):
             if google_result == None:
                 query_word = random.choice(googleQuery_tweet.split()).lower()
                 google_result = google_query.googleSearch(query_word)
-            tweet_googleQuery = f'The first result on Google for "{query_word}" is "{google_result[0]}...". You can read the rest at the link {shortenURLs_firebase.shortenUrl(google_result[1])}'
-            to_tweet.append(tweet_googleQuery)
+            new_tweet = f'The first result on Google for "{query_word}" is "{google_result[0]}...". You can read the rest at the link {shortenURLs_firebase.shortenUrl(google_result[1])}'
         
         # Scrape an article from a website using Python, save the data to a JSON file, then tweet the data using JavaScript
         elif tweet == "PYtoJS":
@@ -159,8 +156,22 @@ def gen_tweets(tweet_types):
         elif tweet == "xkcd":
             import download_xkcd
             xkcd_comic = download_xkcd.download_xkcd()
-            to_tweet.append(f'Latest @xkcdComic: "{xkcd_comic[1]}", available at {xkcd_comic[0]}')
-    
+            new_tweet = f'Latest @xkcdComic: "{xkcd_comic[1]}", available at {xkcd_comic[0]}'
+
+        # Only save the tweet and append it to the list if it's not a "PYtoJS" type of tweet.\
+        # Those are always posted through a JavaScript script
+        if tweet != "PYtoJS":
+            # Check if the created tweet already exists in the database.
+            # Since the URLs included in the tweets are Dynamic Links, even the exact same\
+            # long URL won't have the same Dynamic Link twice. Thus, we only save in the database\
+            # the text up to the URL in each tweet, so that the URLs are not included in the\
+            # saved tweets
+            to_send = db_script.update_db(db_script.session, new_tweet.split('http')[0], tweet, datetime.now())
+            # Update the list of new tweets with the latest created tweet if the tweet is not a duplicate
+            if to_send:
+                to_tweet.append(new_tweet)
+
+
     print()
     print()
 
@@ -198,7 +209,10 @@ def post_tweets(new_tweets, api_instance):
             if 'xkcd' in tweet:
                 api_instance.update_with_media('latest_xkcd.png', status=tweet)
                 # After posting the tweet, delete the image
-                os.remove('latest_xkcd.png')
+                try:
+                	os.remove('latest_xkcd.png')
+                except:
+                	pass
 
             # If it's any other tweet use the regular method to post a text tweet
             else:
