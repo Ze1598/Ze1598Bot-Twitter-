@@ -14,8 +14,6 @@ The bot was created using Python 3, and right now it does the following:
 
 Update logs:
 
--(apr. 15th 2018) Migrated URL shortening from Google URL Shortener to Firebase Dynamic Links; also created a separate file for the update logs of the repo (from now on I will only keep the 3 most recent updates in the README)
-
 -(june 14th 2018) Deleted the code used to tweet internet speeds due to problems with the module used for that. Also added the possibility to tweet the hottest post in the dadjokes subreddit
 
 -(july 28th 2018) Added a new module (download_xkcd.py) to download and post the latest xkcd.com comic (posted as a media tweet). I also updated the main script structure (Ze1598BotTwitter.py)
