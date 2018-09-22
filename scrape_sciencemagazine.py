@@ -11,10 +11,26 @@ source = get(website).text
 soup = BeautifulSoup(source, 'lxml')
 
 def get_first_article():
+    '''
+    Get the first featured article's title and URL from
+    http://www.sciencemag.org/.
+
+    Returns
+    -------
+    tuple
+        A tuple of two items: the article title and the article URL.
+    '''
+
+    # Locate the necessary information in the HTML
     article = soup.find('div', class_ = 'hero__content')
-    #remove leading spaces from the title
+    
+    # Remove leading spaces from the title
     article_title = article.h2.a.text.strip()
-    article_url = 'http://www.sciencemag.org' + article.h2.a['href']
+    
+    # article_url = 'http://www.sciencemag.org' + article.h2.a['href']
+    # Extract the URL
+    article_url = article.h2.a['href']
+    
     return (article_title, article_url)
 
 if __name__ == '__main__':

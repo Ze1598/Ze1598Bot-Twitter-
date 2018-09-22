@@ -33,8 +33,6 @@ class Tweets(Base):
     """
     A class to create the tweets table in the database.
 
-    ...
-
     Attributes
     ----------
     id : sqlalchemy.orm.attributes.InstrumentedAttribute
@@ -84,7 +82,6 @@ def update_db(session, text, text_source, date):
     to this function. Only commit the changes if the tweet
     is not a duplicate.
 
-    
     Parameters
     ----------
     session : sqlalchemy.orm.session.Session
@@ -98,11 +95,14 @@ def update_db(session, text, text_source, date):
 
     Returns
     -------
-    None
+    bool
+        Return True if the database was updated (the
+        tweet was new), else return False (the tweet
+        already existed in the database).
     '''
 
     # Check if the tweet already exists in the database
-    # If the tweet already exists than do nothing
+    # If the tweet already exists then do nothing
     if session.query(Tweets).filter_by(tweet_text=text).first():
         return False
 

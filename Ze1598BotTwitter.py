@@ -18,10 +18,6 @@ def login():
     '''
     Authenticate the bot into Twitter's API.
     
-    Parameters
-    ----------
-    None
-
     Returns
     -------
     api_instance : tweepy.api.API
@@ -46,10 +42,6 @@ def gen_tweet_types():
     '''
     Decide what type of tweets will be created.
     
-    Parameters
-    ----------
-    None
-
     Returns
     -------
     new_tweet_types : list

@@ -9,12 +9,8 @@ from bs4 import BeautifulSoup
 
 def download_xkcd():
     '''
-    Download the lates comic from xkcd.com.
+    Download the latest comic from xkcd.com (a .png file).
     
-    Parameters
-    ----------
-    None
-
     Returns
     -------
     tuple
@@ -38,7 +34,8 @@ def download_xkcd():
         img_request = requests.get(img_url)
         # Create an image from the binary data returned by the request
         img = Image.open(BytesIO(img_request.content))
-        # Finally save the image
+        # Finally save the image locally (the main script of the Twiiter\
+        # bot deletes the image after it is posted)
         img.save(f'latest_xkcd.png')
 
         return (comic_url, comic_title)

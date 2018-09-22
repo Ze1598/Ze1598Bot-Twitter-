@@ -11,13 +11,19 @@ def shortenUrl(deep_link):
     a long Dynamic Link is created so that a POST 
     Request can be made.
 
-    Args:
-        deep_link: the URL to be shortened.
+    Parameters
+    ----------
+    deep_link : str
+        The URL to be shortened.
 
-    Returns:
-        str: A string with the shortened, Dynamic Link.
+    Returns
+    ------
+    return_link : str
+        The shortened URL (a dynamic link) if everything
+        went fine, else the original long URL.
     '''
-    # The API key (from a separate file)
+
+    # The API key (read from a separate file)
     cred = shortenURLs_firebase_credentials.firebase_api_key
     # API endpoint for the POST request
     endpoint = f'https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key={cred}'
@@ -48,11 +54,17 @@ def shortenUrl(deep_link):
     # Create the headers for the POST request
     headers = {'Content-type': 'application/json'}
     
-    # Then finally make the request
+    # Then finally make the request to shorten the URL
     response = requests.post(endpoint, data=json_data, headers=headers)
 
-    # Return the 'shortLink' value of the request object (after parsing the response to a JSON object)
-    return response.json()['shortLink']
+    # Try to get the shortened URL (shortLink). If it's not possible,\
+    # return the long URL
+    try:
+        return_link = response.json()['shortLink']
+    except:
+        return_link = deep_link
+    
+    return return_link
 
 
 if __name__ == '__main__':
