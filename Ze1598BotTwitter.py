@@ -95,8 +95,8 @@ def gen_tweets(tweet_types):
         # Currently not in the options 
         if tweet == "tweet_DateTime":
             import get_Time_Date as T_D
-            import dayOfTheWeek2018
-            new_tweet = f'Date and time update:\n{dayOfTheWeek2018.dayoftheWeek(dayOfTheWeek2018.day, dayOfTheWeek2018.month, dayOfTheWeek2018.year)}\n{T_D.TalkingClock(T_D.time_format)}.'
+            import dayOfTheWeek2019
+            new_tweet = f'Date and time update:\n{dayOfTheWeek2019.dayoftheWeek(dayOfTheWeek2019.day, dayOfTheWeek2019.month, dayOfTheWeek2019.year)}\n{T_D.TalkingClock(T_D.time_format)}.'
         
         # Tweet the current hottest post on a specific subreddit
         elif tweet == "tweet_Reddit":
@@ -222,15 +222,18 @@ def post_tweets(new_tweets, api_instance):
     
     return None
 
+# Run the bot by calling the necessary functions
+def main():
+	# Login to the Twitter API
+	logged_in = login()
+	# Choose what types of tweets to create
+	new_tweet_types = gen_tweet_types()
+	# Create the new tweets
+	new_tweets = gen_tweets(new_tweet_types)
+	# Post the newly created tweets
+	post_tweets(new_tweets, logged_in)
 
-# Login to the Twitter API
-logged_in = login()
-# Choose what types of tweets to create
-new_tweet_types = gen_tweet_types()
-# Create the new tweets
-new_tweets = gen_tweets(new_tweet_types)
-# Post the newly created tweets
-post_tweets(new_tweets, logged_in)
-
-print('Elapsed time:', round(time()-start_time,4), 'seconds.')
-print('Bot going to sleep.')
+if __name__ == "__main__":
+	main()
+	print('Bot going to sleep.')
+	print('Elapsed time:', int(time()-start_time), 'seconds.')
